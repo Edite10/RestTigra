@@ -15,3 +15,6 @@ class SpaBooking(models.Model):
     service = models.ForeignKey(SpaService, on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()
+
+    def __str__(self):
+        return f"{self.customer_name} - {self.service.name} on {self.date} at {self.time}"

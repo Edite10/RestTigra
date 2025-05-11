@@ -4,7 +4,7 @@ from .models import Room
 # Create your views here.
 
 def my_hotel(request):
-    return HttpResponse("Welcome to Rest Tigra!")
+    return render(request, 'hotel/home.html')
 
 def room_list(request):
     rooms = Room.objects.filter(available=True)

@@ -1,0 +1,18 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Rest Tigra{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Rest Tigra</h1>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2025 Rest Tigra Hotel & Spa</p>
+    </footer>
+</body>
+</html>

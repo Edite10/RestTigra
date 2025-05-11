@@ -4,4 +4,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def spa_home(request):
-    return HttpResponse("Welcome to the Rest Tigra spa!")
+    return render(request, 'spa/home.html')
