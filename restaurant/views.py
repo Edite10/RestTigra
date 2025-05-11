@@ -4,4 +4,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def restaurant_home(request):
-    return HttpResponse("Welcome to the restaurant!")
+    return HttpResponse("Welcome to the Rest Tigra restaurant!")
