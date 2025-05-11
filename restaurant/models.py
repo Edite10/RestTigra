@@ -15,3 +15,6 @@ class Reservation(models.Model):
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()
+
+    def __str__(self):
+        return f"Reservation for {self.customer_name} on {self.date} at {self.time}"

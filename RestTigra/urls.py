@@ -24,6 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('hotel/', my_hotel, name='my_hotel'),
     path('restaurant/', restaurant_home, name='restaurant_home'),
-    path('spa/', include('spa.urls', namespace='spa')),  # Use namespace
+    path('spa/', spa_home, name='spa_home'),
 ]
 
