@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<section class="hero">
+    <!-- Header/Navbar placed inside hero section -->
+    <header class="navbar">
+        <input type="checkbox" id="nav-toggle" name="nav-toggle">
+        <label for="nav-toggle" class="nav-toggle-label">
+            <i class="fa-solid fa-bars"></i>
+        </label>
+        <nav>
+            <ul id="menu">
+                <li><a href="{% url 'account_login' %}" class="active">Log in</a></li>
+                <li><a href="{% url 'account_signup' %}" class="btn-signup">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="hero-content">
+        <h1>Welcome to the Rest Tigra!</h1>
+        <p class="tagline">Experience luxury and comfort in the heart of nature</p>
+        <div class="services">
+            <div class="service-btn" onclick="location.href='{% url 'my_hotel' %}'">
+                <i class="fas fa-hotel"></i>
+                <span>Hotel</span>
+            </div>
+            <div class="service-btn" onclick="location.href='{% url 'spa_home' %}'">
+                <i class="fas fa-spa"></i>
+                <span>Spa</span>
+            </div>
+            <div class="service-btn" onclick="location.href='{% url 'restaurant_home' %}'">
+                <i class="fas fa-utensils"></i>
+                <span>Restaurant</span>
+            </div>
+            <div class="service-btn" onclick="location.href='#'">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Events</span>
+            </div>
+            <div class="service-btn" onclick="location.href='#'">
+                <i class="fas fa-building"></i>
+                <span>Renting premises</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <section class="testimonials">
+        <h2>What Our Guests Say</h2>
+        <div class="testimonial-carousel">
+            <div class="testimonial-track" id="testimonialTrack">
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="quote">"The most relaxing stay I've ever had. The staff was incredibly attentive and the spa facilities are world-class."</p>
+                    <div class="rating">★★★★★</div>
+                    <div class="author">- Maria Johnson</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="quote">"Absolutely stunning location. The restaurant offers amazing local cuisine and the rooms are beautifully furnished."</p>
+                    <div class="rating">★★★★★</div>
+                    <div class="author">- David Smith</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                    <p class="quote">"Perfect venue for our corporate retreat. The event staff were professional and accommodating to all our needs."</p>
+                    <div class="rating">★★★★☆</div>
+                    <div class="author">- Sarah Williams</div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-controls">
+            <div class="progress-bar">
+                <div class="progress-indicator" id="progressIndicator"></div>
+            </div>
+            <div class="carousel-buttons">
+                <button onclick="moveSlide(-1)" class="carousel-btn"><i class="fas fa-chevron-left"></i></button>
+                <button onclick="moveSlide(1)" class="carousel-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <div class="footer-content">
+        <div class="quick-links">
+            <h3>Quick Links</h3>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'my_hotel' %}">Hotel</a>
+            <a href="{% url 'spa_home' %}">Spa</a>
+            <a href="{% url 'restaurant_home' %}">Restaurant</a>
+            <a href="{% url 'account_login' %}">Log in</a>
+            <a href="{% url 'account_signup' %}">Sign up</a>
+            <a href="#">Contact us</a>
+        </div>
+        <div class="social-links">
+            <h3>Connect With Us</h3>
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2025 Rest Tigra. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    let currentSlide = 0;
+    const totalSlides = document.querySelectorAll('.testimonial-card').length;
+    let autoScrollInterval;
+    const track = document.getElementById('testimonialTrack');
+    const progressIndicator = document.getElementById('progressIndicator');
+    
+    function moveSlide(direction) {
+        currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+        
+        // Calculate the position to move to
+        const position = currentSlide * (100 / totalSlides);
+        track.style.transform = `translateX(-${position}%)`;
+        
+        // Update progress indicator
+        progressIndicator.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+        
+        resetAutoScroll();
+    }
+
+    function autoScroll() {
+        moveSlide(1);
+    }
+
+    function resetAutoScroll() {
+        clearInterval(autoScrollInterval);
+        autoScrollInterval = setInterval(autoScroll, 5000);
+    }
+
+    // Start auto-scrolling when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set initial position and progress
+        track.style.transform = 'translateX(0)';
+        progressIndicator.style.width = `${(1 / totalSlides) * 100}%`;
+        
+        // Initialize auto-scrolling
+        resetAutoScroll();
+        
+        // Add smooth transition after initial setup
+        setTimeout(() => {
+            track.style.transition = 'transform 0.8s ease-in-out';
+            progressIndicator.style.transition = 'width 0.8s ease-in-out';
+        }, 100);
+    });
+</script>
+
+{% endblock %}

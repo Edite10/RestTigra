@@ -4,4 +4,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def spa_home(request):
-    return render(request, 'spa/home.html')
+    return render(request, 'spa/spa_home.html')

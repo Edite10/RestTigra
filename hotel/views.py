@@ -4,7 +4,7 @@ from .models import Room
 # Create your views here.
 
 def my_hotel(request):
-    return render(request, 'hotel/home.html')
+    return render(request, 'hotel/hotel_home.html',)
 
 def room_list(request):
     rooms = Room.objects.filter(available=True)
