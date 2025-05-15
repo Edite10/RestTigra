@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<section class="hero">
+    <!-- Header/Navbar placed inside hero section -->
+    <header class="navbar">
+        <input type="checkbox" id="nav-toggle" name="nav-toggle">
+        <label for="nav-toggle" class="nav-toggle-label">
+            <i class="fa-solid fa-bars"></i>
+        </label>
+        <nav>
+            <ul id="menu">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'my_hotel' %}">Hotel</a></li>
+                <li><a href="{% url 'spa_home' %}">Spa</a></li>
+                <li><a href="{% url 'restaurant_home' %}">Restaurant</a></li>
+                <li><a href="{% url 'events' %}">Events</a></li>
+                <li><a href="{% url 'account_login' %}">Log in</a></li>
+                <li><a href="{% url 'account_signup' %}" class="btn-signup">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="hero-content">
+        <h1>Rent Our Premises</h1>
+        <p class="tagline">Perfect spaces for your events, meetings and celebrations</p>
+    </div>
+</section>
+<section class="premises-section">
+    <div class="container">
+        <div class="premises-grid">
+            <!-- East Hall -->
+            <div class="premise-card">
+                <div class="premise-content">
+                    <h3>Conference Hall</h3>
+                     <p>Modern space for conferences, seminars, and large presentations with full audio-visual equipment.</p>
+                    <img src="{% static 'images/austrumuzale.jpeg' %}" alt="Conference Hall">
+                    <div class="premise-specs">
+                        <div class="spec">
+                            <i class="fas fa-users"></i>
+                            <span>Up to 80 guests</span>
+                        </div>
+                        <div class="spec">
+                            <i class="fas fa-vector-square"></i>
+                            <span>120 m²</span>
+                        </div>
+                    </div>
+                    <div class="premise-pricing">
+                        <div class="price-block">
+                            <span class="duration">4 hours</span>
+                            <span class="price">€450</span>
+                        </div>
+                        <div class="price-block">
+                            <span class="duration">8 hours</span>
+                            <span class="price">€800</span>
+                        </div>
+                    </div>
+                    <button class="book-btn">Book Now</button>
+                </div>
+            </div>
+
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Need a Custom Solution?</h2>
+            <p>We can tailor our spaces to fit your specific requirements. Contact our team for personalized arrangements and special packages.</p>
+            <button class="contact-btn">Contact Us</button>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div class="quick-links">
+            <h3>Quick Links</h3>
+            <a href="{% url 'spa_home' %}">Spa</a>
+            <a href="{% url 'restaurant_home' %}">Restaurant</a>
+            <a href="{% url 'account_login' %}">Log in</a>
+            <a href="{% url 'account_signup' %}">Sign up</a>
+            <a href="{% url 'contactus' %}">Contact us</a>
+        </div>
+        <div class="social-links">
+            <h3>Connect With Us</h3>
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2025 Rest Tigra. All rights reserved.</p>
+    </div>
+</footer>
+
+{% endblock %}

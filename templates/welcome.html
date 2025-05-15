@@ -5,6 +5,8 @@
 <section class="hero">
     <!-- Header/Navbar placed inside hero section -->
     <header class="navbar">
+        <div class="navbar-brand">
+        </div>
         <input type="checkbox" id="nav-toggle" name="nav-toggle">
         <label for="nav-toggle" class="nav-toggle-label">
             <i class="fa-solid fa-bars"></i>
@@ -33,11 +35,11 @@
                 <i class="fas fa-utensils"></i>
                 <span>Restaurant</span>
             </div>
-            <div class="service-btn" onclick="location.href='#'">
+            <div class="service-btn" onclick="location.href='{% url 'events' %}'">
                 <i class="fas fa-calendar-alt"></i>
                 <span>Events</span>
             </div>
-            <div class="service-btn" onclick="location.href='#'">
+            <div class="service-btn" onclick="location.href='{% url 'premises' %}'">
                 <i class="fas fa-building"></i>
                 <span>Renting premises</span>
             </div>

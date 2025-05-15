@@ -28,5 +28,9 @@ urlpatterns = [
     path('hotel/', my_hotel, name='my_hotel'),
     path('restaurant/', restaurant_home, name='restaurant_home'),
     path('spa/', spa_home, name='spa_home'),
-    path('accounts/', include('allauth.urls')), 
+    path('accounts/', include('allauth.urls')),
+    path('events/', TemplateView.as_view(template_name='events.html'), name='events'),
+    path('premises/', TemplateView.as_view(template_name='premises.html'), name='premises'),
+    path('contactus/', TemplateView.as_view(template_name='contactus.html'), name='contactus'),
+
 ]
