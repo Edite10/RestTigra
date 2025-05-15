@@ -27,61 +27,204 @@
         <p class="tagline">Perfect spaces for your events, meetings and celebrations</p>
     </div>
 </section>
-<section class="premises-section">
-    <div class="container">
-        <div class="premises-grid">
-            <div class="premise-card">
-                <div class="premise-info">
-                    <h3>Conference Hall</h3>
-                    <p>Modern space for conferences, seminars, and large presentations with full audio-visual equipment.</p>
+<section>
+    <h1 class="text-4xl font-bold text-center my-8">Premises for Events</h1>
+    <p class="text-center max-w-4xl mx-auto mb-12 px-4">We offer modernly equipped and individually adjustable conference rooms and event spaces. We provide an individual approach and excellent service in organising conferences and entertainment events.</p>
+    
+    <div class="max-w-7xl mx-auto px-4 mt-16">
+        <!-- Card 1: East Hall -->
+        <div class="mb-12">
+            <div class="bg-white rounded-2xl shadow-md overflow-hidden grid grid-cols-1 md:grid-cols-2">
+                <!-- Left: Description -->
+                <div class="p-6 flex flex-col justify-center space-y-4">
+                    <h2 class="text-2xl font-semibold">East Hall</h2>
+                    <p class="text-gray-600">
+                        Spacious, multifunctional rooms featuring a private terrace—ideal for both social gatherings and business conferences. The space can be fully equipped to meet your needs, and we offer a diverse menu for coffee breaks, snacks, or lunch to enhance your event experience.
+                    </p>
+                    <!-- Specs -->
+                    <div class="premise-specs space-y-2">
+                        <div class="flex items-center space-x-2 text-gray-700">
+                            <i class="fas fa-users"></i>
+                            <span>50 - 150 guests</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-gray-700">
+                            <i class="fas fa-vector-square"></i>
+                            <span>140 m²</span>
+                        </div>
+                    </div>
+                    <!-- Pricing -->
+                    <div class="premise-pricing grid grid-cols-2 gap-4 pt-4">
+                        <div class="price-block text-center">
+                            <span class="block text-sm text-gray-500">4 hours</span>
+                            <span class="text-lg font-bold">€150</span>
+                        </div>
+                        <div class="price-block text-center">
+                            <span class="block text-sm text-gray-500">8 hours</span>
+                            <span class="text-lg font-bold">€200</span>
+                        </div>
+                    </div>
+                    <!-- Button -->
+                    <a href="{% url 'contactus' %}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition mt-4">Book now </a>
+                </div>
+                <!-- Right: Image -->
+                <div class="h-64 md:h-auto">
+                    <img src="{% static 'images/austrumuzale.jpeg' %}" alt="East Hall" class="w-full h-full object-cover"/>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card 2: West Hall -->
+        <div class="mb-12">
+            <div class="bg-white rounded-2xl shadow-md overflow-hidden grid grid-cols-1 md:grid-cols-2">
+                <!-- Left: Description -->
+                <div class="p-6 flex flex-col justify-center space-y-4">
+                    <h2 class="text-2xl font-semibold">West Hall</h2>
+                    <p class="text-gray-600">
+                        Situated on the second floor, the West Hall offers a warm and inviting atmosphere, perfect for seminars, banquets, children's parties, or other special events. The space can be tailored to suit your needs, ensuring a comfortable and memorable experience for all guests.
+                    </p>
+                    <!-- Specs -->
+                    <div class="premise-specs space-y-2">
+                        <div class="flex items-center space-x-2 text-gray-700">
+                            <i class="fas fa-users"></i>
+                            <span>20 - 30 guests</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-gray-700">
+                            <i class="fas fa-vector-square"></i>
+                            <span>50 m²</span>
+                        </div>
+                    </div>
+                    <!-- Pricing -->
+                    <div class="premise-pricing grid grid-cols-2 gap-4 pt-4">
+                        <div class="price-block text-center">
+                            <span class="block text-sm text-gray-500">4 hours</span>
+                            <span class="text-lg font-bold">€60</span>
+                        </div>
+                        <div class="price-block text-center">
+                            <span class="block text-sm text-gray-500">8 hours</span>
+                            <span class="text-lg font-bold">€100</span>
+                        </div>
+                    </div>
+                    <!-- Button -->
+                    <a href="{% url 'contactus' %}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition mt-4">Book now </a>
+                </div>
+                <!-- Right: Image -->
+                <div class="h-64 md:h-auto">
+                    <img src="{% static 'images/rietumuzale.jpg' %}" alt="West Hall" class="w-full h-full object-cover"/>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card 3: SPA area events hall -->
+        <div class="mb-12">
+            <div class="bg-white rounded-2xl shadow-md overflow-hidden grid grid-cols-1 md:grid-cols-2">
+                <!-- Left: Description -->
+                <div class="p-6 flex flex-col justify-center space-y-4">
+                    <h2 class="text-2xl font-semibold">SPA Area Event Hall</h2>
+                    <p class="text-gray-600">
+                        A versatile venue ideal for private gatherings and celebrations. Access to the SPA area is available for an additional fee.
+                    </p>
+                    <!-- Specs -->
+                    <div class="premise-specs space-y-2">
+                        <div class="flex items-center space-x-2 text-gray-700">
+                            <i class="fas fa-users"></i>
+                            <span>25 - 35 guests</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-gray-700">
+                            <i class="fas fa-vector-square"></i>
+                            <span>65 m²</span>
+                        </div>
+                    </div>
+                    <!-- Pricing -->
+                    <div class="premise-pricing grid grid-cols-2 gap-4 pt-4">
+                        <div class="price-block text-center">
+                            <span class="block text-sm text-gray-500">4 hours</span>
+                            <span class="text-lg font-bold">€50</span>
+                        </div>
+                        <div class="price-block text-center">
+                            <span class="block text-sm text-gray-500">8 hours</span>
+                            <span class="text-lg font-bold">€80</span>
+                        </div>
+                    </div>
+                    <!-- Button -->
+                    <a href="{% url 'contactus' %}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition mt-4">Book now </a>
+                </div>
+                <!-- Right: Image -->
+                <div class="h-64 md:h-auto">
+                    <img src="{% static 'images/spzonasbanketuzale.jpg' %}" alt="SPA Area" class="w-full h-full object-cover"/>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card 4: Restaurant little north hall -->
+        <div class="mb-12">
+            <div class="bg-white rounded-2xl shadow-md overflow-hidden grid grid-cols-1 md:grid-cols-2">
+                <!-- Left: Description -->
+                <div class="p-6 flex flex-col justify-center space-y-4">
+                    <h2 class="text-2xl font-semibold">Restaurant North Hall</h2>
+                    <p class="text-gray-600">
+                        Ideal for intimate banquets, private events, and celebrations. Table reservations available for your special occasion.
+                    </p>
+                    <!-- Specs -->
+                    <div class="premise-specs space-y-2">
+                        <div class="flex items-center space-x-2 text-gray-700">
+                            <i class="fas fa-users"></i>
+                            <span>Up to 25 guests</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-gray-700">
+                            <i class="fas fa-vector-square"></i>
+                            <span>43 m²</span>
+                        </div>
                     </div>
 
-    <div class="max-w-4xl mx-auto p-4">
-        <div class="bg-white rounded-2xl shadow-md overflow-hidden grid grid-cols-1 md:grid-cols-2">
-        <!-- Left: Description -->
-    <div class="p-6 flex flex-col justify-center space-y-4">
-        <h2 class="text-2xl font-semibold">East Hall</h2>
-            <p class="text-gray-600">
-            This is the description area. You can add any text content here to describe your card. Make sure it's concise and informative.</p>
-        <!-- Specs -->
-        <div class="premise-specs space-y-2">
-            <div class="flex items-center space-x-2 text-gray-700">
-                <i class="fas fa-users"></i>
-                <span>Up to 80 guests</span>
+                    <!-- Button -->
+                    <a href="{% url 'contactus' %}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition mt-4">Book now </a>
+                </div>
+                <!-- Right: Image -->
+                <div class="h-64 md:h-auto">
+                    <img src="{% static 'images/restoranamazaziemeluzale.jpg' %}" alt="Restaurant North Hall" class="w-full h-full object-cover"/>
+                </div>
             </div>
-        <div class="flex items-center space-x-2 text-gray-700">
-                <i class="fas fa-vector-square"></i>
-                <span>120 m²</span>
         </div>
-        </div>
+        
+        <!-- Card 5: Restaurant south hall -->
+        <div class="mb-12">
+            <div class="bg-white rounded-2xl shadow-md overflow-hidden grid grid-cols-1 md:grid-cols-2">
+                <!-- Left: Description -->
+                <div class="p-6 flex flex-col justify-center space-y-4">
+                    <h2 class="text-2xl font-semibold">Restaurant South Hall</h2>
+                    <p class="text-gray-600">
+                        An elegant venue ideal for banquets, celebrations, and special occasions. Available exclusively with full hotel complex bookings—pricing is tailored based on guest count and event duration.
+                    </p>
+                    <!-- Specs -->
+                    <div class="premise-specs space-y-2">
+                        <div class="flex items-center space-x-2 text-gray-700">
+                            <i class="fas fa-users"></i>
+                            <span>45 - 80 guests</span>
+                        </div>
+                        <div class="flex items-center space-x-2 text-gray-700">
+                            <i class="fas fa-vector-square"></i>
+                            <span>124 m²</span>
+                        </div>
+                    </div>
 
-        <!-- Pricing -->
-        <div class="premise-pricing grid grid-cols-2 gap-4 pt-4">
-            <div class="price-block text-center">
-                <span class="block text-sm text-gray-500">4 hours</span>
-                <span class="text-lg font-bold">€450</span>
-            </div>
-            <div class="price-block text-center">
-                <span class="block text-sm text-gray-500">8 hours</span>
-                <span class="text-lg font-bold">€800</span>
-            </div>
-        </div>
-      <!-- Button -->
-        <a href="{% url 'contactus' %}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition mt-4">Book now </a>
-    </div>
-    <!-- Right: Image -->
-            <div class="h-64 md:h-auto">
-                <img src="{% static 'images/austrumuzale.jpeg' %}" alt="East Hall" class="w-full h-full object-cover"/>
+                    <!-- Button -->
+                    <a href="{% url 'contactus' %}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 transition mt-4">Book now </a>
+                </div>
+                <!-- Right: Image -->
+                <div class="h-64 md:h-auto">
+                    <img src="{% static 'images/restoranadienviduzale.jpg' %}" alt="Restaurant South Hall" class="w-full h-full object-cover"/>
+                </div>
             </div>
         </div>
     </div>
+</section>
 
 <section class="cta-section">
-    <div class="container">
-        <div class="cta-content">
-            <h2>Need a Custom Solution?</h2>
-            <p>We can tailor our spaces to fit your specific requirements. Contact our team for personalized arrangements and special packages.</p>
-            <button class="contact-btn">Contact Us</button>
+    <div class="container mx-auto max-w-4xl px-4 py-12 mb-12">
+        <div class="cta-content text-center">
+            <h2 class="text-xl md:text-2xl font-semibold mb-6">Need a Custom Solution?</h2>
+            <p class="text-center mb-8 max-w-2xl mx-auto">We can tailor our spaces to fit your specific requirements. Contact our team for personalized arrangements and special packages.</p>
+            <a href="{% url 'contactus' %}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition">Contact Us</a>
         </div>
     </div>
 </section>
