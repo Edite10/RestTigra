@@ -21,6 +21,7 @@ from restaurant.views import restaurant_home  # Import restaurant view
 from spa.views import spa_home
 from django.views.generic.base import TemplateView
 from django.contrib.auth import views as auth_views
+from contact.views import contact_view
 
 urlpatterns = [
     path('',TemplateView.as_view(template_name='welcome.html'), name='home'),
@@ -31,6 +32,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('events/', TemplateView.as_view(template_name='events.html'), name='events'),
     path('premises/', TemplateView.as_view(template_name='premises.html'), name='premises'),
-    path('contactus/', TemplateView.as_view(template_name='contactus.html'), name='contactus'),
+    path('contactus/', contact_view, name='contactus'),
 
 ]
