@@ -2,7 +2,86 @@
 {% block content %}
 {% load static %}
 
+<section class="hero">
+    {% include 'includes/navigation.html' %}
+    
+    <div class="hero-content">
+        <h1>Upcoming Events</h1>
+        <p class="tagline">Join us for special moments and unforgettable experiences</p>
+    </div>
+</section>
 
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Events</h2>
+        
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden mb-12 max-w-5xl mx-auto">
+            <div class="md:flex">
+                <!-- Image -->
+                <div class="md:w-2/5">
+                    <div class="h-64 md:h-full relative">
+                        <img src="{% static 'images/event.jpeg' %}" alt="Event" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div class="md:w-3/5 p-6">
+                    <h3 class="text-2xl font-bold mb-2">Tales of the Vienna Woods</h3>
+                    <p class="text-gray-600 mb-4">
+                        Vienna Imperial Orchestra «Tales of the Vienna Woods» – Johann Strauss 200th Anniversary Gala Concert!
+                        The Vienna Kaiserwalzer Orchestra invites you to a magnificent evening dedicated to the "king of waltzes" – Johann Strauss. Virtuoso musicians and brilliant ballet soloists will perform the most famous pieces of Viennese classical music in a luxurious atmosphere.
+                    </p>
+                    
+                    <!-- Event Details -->
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <p class="text-sm text-gray-500">Date & Time</p>
+                            <p class="font-medium">April 26, 2025 • 18:00</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Location</p>
+                            <p class="font-medium">Hotel Tigra</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Price</p>
+                            <p class="font-medium">€35 per person</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Book your place</p>
+                            <p>Contact us: +371 25414499</p> <!-- Removed font-medium class -->
+                        </div>
+                    </div>
+                    
+                    <!-- CTA Button -->
+                    <a href="https://www.bilesuserviss.lv/lat/biletes/muzika/vines-meza-stasti-462611/%" class="inline-block bg-blue-600 text-white px-5 py-2 rounded-xl hover:bg-blue-700 transition">
+                        Buy your tickets
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-
+<footer>
+    <div class="footer-content">
+        <div class="quick-links">
+            <h3>Quick Links</h3>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'my_hotel' %}">Hotel</a>
+            <a href="{% url 'spa_home' %}">Spa</a>
+            <a href="{% url 'restaurant_home' %}">Restaurant</a>
+            <a href="{% url 'premises' %}">Premises</a>
+            <a href="{% url 'contactus' %}">Contact us</a>
+        </div>
+        <div class="social-links">
+            <h3>Connect With Us</h3>
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2025 Rest Tigra. All rights reserved.</p>
+    </div>
+</footer>
 {% endblock %}

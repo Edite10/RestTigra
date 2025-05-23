@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<h2>My Bookings</h2>
+<a href="{% url 'book_service' %}">New Booking</a>
+<ul>
+  {% for booking in bookings %}
+    <li>{{ booking.service_type }} on {{ booking.booking_date }} at {{ booking.booking_time }}
+        <a href="{% url 'edit_booking' booking.id %}">Edit</a>
+        <a href="{% url 'cancel_booking' booking.id %}">Cancel</a>
+    </li>
+  {% empty %}
+    <li>No bookings found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -3,24 +3,7 @@
 {% load static %}
 
 <section class="hero">
-    <!-- Header/Navbar placed inside hero section -->
-    <header class="navbar">
-        <input type="checkbox" id="nav-toggle" name="nav-toggle">
-        <label for="nav-toggle" class="nav-toggle-label">
-            <i class="fa-solid fa-bars"></i>
-        </label>
-        <nav>
-            <ul id="menu">
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'my_hotel' %}">Hotel</a></li>
-                <li><a href="{% url 'spa_home' %}">Spa</a></li>
-                <li><a href="{% url 'restaurant_home' %}">Restaurant</a></li>
-                <li><a href="{% url 'events' %}">Events</a></li>
-                <li><a href="{% url 'account_login' %}">Log in</a></li>
-                <li><a href="{% url 'account_signup' %}" class="btn-signup">Sign Up</a></li>
-            </ul>
-        </nav>
-    </header>
+    {% include 'includes/navigation.html' %}
     
     <div class="hero-content">
         <h1>Rent Our Premises</h1>

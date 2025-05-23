@@ -3,24 +3,10 @@
 {% load static %}
 
 <section class="hero">
-    <!-- Header/Navbar placed inside hero section -->
-    <header class="navbar">
-        <div class="navbar-brand">
-        </div>
-        <input type="checkbox" id="nav-toggle" name="nav-toggle">
-        <label for="nav-toggle" class="nav-toggle-label">
-            <i class="fa-solid fa-bars"></i>
-        </label>
-        <nav>
-            <ul id="menu">
-                <li><a href="{% url 'account_login' %}">Log in</a></li>
-                <li><a href="{% url 'account_signup' %}" class="btn-signup">Sign Up</a></li>
-            </ul>
-        </nav>
-    </header>
+    {% include 'includes/navigation.html' %}
     
     <div class="hero-content">
-        <h1>Welcome to the Rest Tigra!</h1>
+        <h1>Welcome to the Hotel Tigra!</h1>
         <p class="tagline">Experience luxury and comfort in the heart of nature</p>
         <div class="services">
             <div class="service-btn" onclick="location.href='{% url 'my_hotel' %}'">

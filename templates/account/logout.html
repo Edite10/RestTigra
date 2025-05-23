@@ -4,24 +4,7 @@
 
 {% block content %}
 <section class="hero">
-    <!-- Header/Navbar placed inside hero section -->
-    <header class="navbar">
-        <div class="navbar-brand">
-        </div>
-        <input type="checkbox" id="nav-toggle" name="nav-toggle">
-        <label for="nav-toggle" class="nav-toggle-label">
-            <i class="fa-solid fa-bars"></i>
-        </label>
-        <nav>
-            <ul id="menu">
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'my_hotel' %}">Hotel</a></li>
-                <li><a href="{% url 'spa_home' %}">Spa</a></li>
-                <li><a href="{% url 'restaurant_home' %}">Restaurant</a></li>
-                <li><a href="{% url 'contactus' %}">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    {% include 'includes/navigation.html' %}
     
     <div class="hero-content flex flex-col items-center">
         <h1>Sign Out</h1>

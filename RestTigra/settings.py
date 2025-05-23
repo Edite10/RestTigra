@@ -43,20 +43,44 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',  # Required for django-allauth
     'hotel',
     'restaurant',
     'spa',
+    'contact',
+    'dashboard',
+    
+    # Django-allauth apps
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    # Add any additional allauth providers you need, like:
+    # 'allauth.socialaccount.providers.google',
 ]
 
-SITE_ID = 1  # Required for django-allauth
+# Site ID is required for django-allauth
+SITE_ID = 1
 
+# Configure authentication backends
+AUTHENTICATION_BACKENDS = [
+    # Django's default auth backend
+    'django.contrib.auth.backends.ModelBackend',
+    
+    # django-allauth specific backend
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
-# Redirect URLs
-LOGIN_REDIRECT_URL = '/'  # Redirect after login
-LOGOUT_REDIRECT_URL = '/'  # Redirect after logout
+# Allauth settings
+ACCOUNT_EMAIL_VERIFICATION = 'none'  # Set to 'mandatory' to require email verification
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  # Options: 'username', 'email', or 'username_email'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'  # Options: 'mandatory', 'optional', or 'none'
+
+# Login and Redirect URLs
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/dashboard/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -123,44 +147,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-
-# AllAuth Settings
-AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
-SITE_ID = 1  # new
-
-# Redirect URLs
-LOGIN_REDIRECT_URL = '/'  # Redirect after login
-LOGOUT_REDIRECT_URL = '/'  # Redirect after logout
-
-# Optional: Configure Allauth
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD = 'username'  # Options: 'username', 'email', or 'username_email'
-ACCOUNT_EMAIL_VERIFICATION = 'optional'  # Options: 'mandatory', 'optional', or 'none'
-
-# Login and Redirect URLs
-LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/accounts/login/'
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_TZ = True
-
+# Email settings for contact form
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'tigrarest@gmail.com'
+EMAIL_HOST_PASSWORD = 'zurm pkjz hamh czbd'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
@@ -176,15 +170,3 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Default primary key field type
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Email settings for contact form
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'tigrarest@gmail.com'
-EMAIL_HOST_PASSWORD = 'zurm pkjz hamh czbd'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

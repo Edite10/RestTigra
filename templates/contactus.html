@@ -3,26 +3,7 @@
 {% load static %}
 
 <section class="hero">
-    <!-- Header/Navbar placed inside hero section -->
-    <header class="navbar">
-        <div class="navbar-brand">
-        </div>
-        <input type="checkbox" id="nav-toggle" name="nav-toggle">
-        <label for="nav-toggle" class="nav-toggle-label">
-            <i class="fa-solid fa-bars"></i>
-        </label>
-        <nav>
-            <ul id="menu">
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'my_hotel' %}">Hotel</a></li>
-                <li><a href="{% url 'spa_home' %}">Spa</a></li>
-                <li><a href="{% url 'restaurant_home' %}">Restaurant</a></li>
-                <li><a href="{% url 'events' %}">Events</a></li>
-                <li><a href="{% url 'account_login' %}">Log in</a></li>
-                <li><a href="{% url 'account_signup' %}" class="btn-signup">Sign Up</a></li>
-            </ul>
-        </nav>
-    </header>
+    {% include 'includes/navigation.html' %}
     
     <div class="hero-content flex flex-col items-center">
         <h1>Contact Us</h1>
@@ -36,16 +17,18 @@
                     <div class="md:w-2/3 p-6 sm:p-8">
                         <h2 class="text-xl sm:text-2xl font-semibold mb-6 text-gray-800">Send Us a Message</h2>
                         
+                        <!-- Modified to include django-messages class for auto-hiding -->
                         {% if messages %}
                             {% for message in messages %}
-                                <div class="mb-6 p-4 {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %} rounded-lg">
+                                <div class="django-messages mb-6 p-4 {% if message.tags == 'success' %}bg-green-100 text-green-700{% else %}bg-red-100 text-red-700{% endif %} rounded-lg">
                                     {{ message }}
                                 </div>
                             {% endfor %}
                         {% endif %}
 
+                        <!-- Added django-messages class to form errors -->
                         {% if form.errors %}
-                            <div class="mb-6 p-4 bg-red-100 text-red-700 rounded-lg">
+                            <div class="django-messages mb-6 p-4 bg-red-100 text-red-700 rounded-lg">
                                 <strong>Please correct the following errors:</strong>
                                 <ul class="mt-2 list-disc list-inside">
                                     {% for field in form %}
@@ -166,4 +149,24 @@
     </div>
 </footer>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Additional code to handle any allauth messages
+    document.addEventListener('DOMContentLoaded', function() {
+        // Specifically target allauth messages that might be added outside our structure
+        const allauthMessages = document.querySelectorAll('.alert, .message');
+        allauthMessages.forEach(function(message) {
+            // Add our django-messages class to enable auto-hiding
+            message.classList.add('django-messages');
+            setTimeout(function() {
+                message.classList.add('fade-out');
+                setTimeout(function() {
+                    message.style.display = 'none';
+                }, 500);
+            }, 5000);
+        });
+    });
+</script>
 {% endblock %}

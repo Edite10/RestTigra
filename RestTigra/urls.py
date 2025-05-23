@@ -17,11 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from hotel.views import my_hotel
-from restaurant.views import restaurant_home  # Import restaurant view
+from restaurant.views import restaurant_home
 from spa.views import spa_home
 from django.views.generic.base import TemplateView
 from django.contrib.auth import views as auth_views
 from contact.views import contact_view
+from dashboard.views import dashboard_view
 
 urlpatterns = [
     path('',TemplateView.as_view(template_name='welcome.html'), name='home'),
@@ -33,5 +34,5 @@ urlpatterns = [
     path('events/', TemplateView.as_view(template_name='events.html'), name='events'),
     path('premises/', TemplateView.as_view(template_name='premises.html'), name='premises'),
     path('contactus/', contact_view, name='contactus'),
-
+    path('dashboard/', dashboard_view, name='dashboard_home'),
 ]
