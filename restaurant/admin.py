@@ -1,12 +1,6 @@
 from django.contrib import admin
 from .models import Table, Reservation
 
-@admin.register(Table)
-class TableAdmin(admin.ModelAdmin):
-    list_display = ('number', 'seats', 'available')
-    list_filter = ('available',)
-    ordering = ('number',)
-
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
     list_display = ('customer_name', 'table', 'date', 'time')

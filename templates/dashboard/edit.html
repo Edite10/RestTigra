@@ -1,8 +1,194 @@
-{% extends "base.html" %}
-
-{% block title %}Hotel{% endblock %}
-
+{% extends 'base.html' %}
 {% block content %}
-<h2>Welcome to the Rest Tigra Hotel!</h2>
-<p>Experience luxury and comfort during your stay.</p>
+{% load static %}
+
+<section class="hero">
+    {% include 'includes/navigation.html' %}
+    
+    <div class="hero-content">
+        <h1>Edit Booking</h1>
+        <p class="tagline">Update your reservation details</p>
+    </div>
+</section>
+
+<section class="py-16 bg-blue-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-blue-100">
+                {% if messages %}
+                    <div class="p-6 border-b border-gray-200">
+                        {% for message in messages %}
+                            <div class="django-messages mb-4 p-4 {% if message.tags == 'success' %}bg-green-100 text-green-700{% elif message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-blue-100 text-blue-700{% endif %} rounded-lg font-medium">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                <div class="p-8 md:p-10">
+                    <div class="flex justify-between items-center mb-8 border-b border-gray-200 pb-4">
+                        <h2 class="text-2xl font-bold text-blue-800">Booking #{{ booking.id }}</h2>
+                        <span class="px-3 py-1 inline-flex text-sm leading-5 font-semibold rounded-full 
+                            {% if booking.status == 'confirmed' %}bg-green-100 text-green-800
+                            {% elif booking.status == 'pending' %}bg-yellow-100 text-yellow-800
+                            {% else %}bg-gray-100 text-gray-800{% endif %}">
+                            {{ booking.status|title }}
+                        </span>
+                    </div>
+                    
+                    <form method="POST" class="space-y-8">
+                        {% csrf_token %}
+                        
+                        <div class="p-6 bg-yellow-50 rounded-lg mb-6">
+                            <h3 class="font-semibold text-lg mb-4 text-yellow-800">Booking Details</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div>
+                                    <label for="id_booking_date" class="block text-sm font-semibold text-gray-700 mb-2">Date</label>
+                                    <input type="date" id="id_booking_date" name="booking_date" value="{{ booking.booking_date|date:'Y-m-d' }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" required>
+                                </div>
+                                
+                                <div>
+                                    <label for="id_booking_time" class="block text-sm font-semibold text-gray-700 mb-2">Time</label>
+                                    <input type="time" id="id_booking_time" name="booking_time" value="{{ booking.booking_time|time:'H:i' }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" {% if booking.service_type != 'hotel' %}required{% endif %}>
+                                    {% if booking.service_type == 'hotel' %}
+                                    <p class="mt-1 text-xs text-gray-500">For hotel bookings, check-in time is at 14:00</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% if booking.service_type == 'hotel' %}
+                            <!-- Hotel specific fields -->
+                            <div class="p-6 bg-blue-50 rounded-lg mb-6">
+                                <h3 class="font-semibold text-lg mb-4 text-blue-800">Hotel Booking Details</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div>
+                                        <label for="id_check_out" class="block text-sm font-semibold text-gray-700 mb-2">Check-out Date</label>
+                                        <input type="date" id="id_check_out" name="check_out" value="{{ hotel_details.check_out|date:'Y-m-d' }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" required>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="id_guests" class="block text-sm font-semibold text-gray-700 mb-2">Number of Guests</label>
+                                        <select id="id_guests" name="guests" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" required>
+                                            {% for i in "12345" %}
+                                                <option value="{{ i }}" {% if hotel_details.guests == i|add:"0" %}selected{% endif %}>{{ i }} Guest{{ i|pluralize }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        {% elif booking.service_type == 'spa' %}
+                            <!-- Spa specific fields -->
+                            <div class="p-6 bg-purple-50 rounded-lg mb-6">
+                                <h3 class="font-semibold text-lg mb-4 text-purple-800">Spa Treatment Details</h3>
+                                <div>
+                                    <label for="id_treatment_type" class="block text-sm font-semibold text-gray-700 mb-2">Treatment</label>
+                                    <select id="id_treatment_type" name="treatment_type" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" required>
+                                        <option value="massage" {% if spa_details.treatment_type == 'massage' %}selected{% endif %}>Massage</option>
+                                        <option value="facial" {% if spa_details.treatment_type == 'facial' %}selected{% endif %}>Facial</option>
+                                        <option value="body" {% if spa_details.treatment_type == 'body' %}selected{% endif %}>Body Treatment</option>
+                                        <option value="package" {% if spa_details.treatment_type == 'package' %}selected{% endif %}>Spa Package</option>
+                                    </select>
+                                </div>
+                            </div>
+                        {% elif booking.service_type == 'restaurant' %}
+                            <!-- Restaurant specific fields -->
+                            <div class="p-6 bg-yellow-50 rounded-lg mb-6">
+                                <h3 class="font-semibold text-lg mb-4 text-yellow-800">Restaurant Reservation Details</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div>
+                                        <label for="id_party_size" class="block text-sm font-semibold text-gray-700 mb-2">Party Size</label>
+                                        <select id="id_party_size" name="party_size" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" required>
+                                            {% for i in "123456789" %}
+                                                <option value="{{ i }}" {% if restaurant_details.party_size == i|add:"0" %}selected{% endif %}>{{ i }} Person{{ i|pluralize }}</option>
+                                            {% endfor %}
+                                            <option value="10+" {% if restaurant_details.party_size >= 10 %}selected{% endif %}>10+ People</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="id_seating_preference" class="block text-sm font-semibold text-gray-700 mb-2">Seating Preference</label>
+                                        <select id="id_seating_preference" name="seating_preference" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3">
+                                            <option value="any" {% if restaurant_details.seating_preference == 'any' %}selected{% endif %}>No Preference</option>
+                                            <option value="indoor" {% if restaurant_details.seating_preference == 'indoor' %}selected{% endif %}>Indoor</option>
+                                            <option value="outdoor" {% if restaurant_details.seating_preference == 'outdoor' %}selected{% endif %}>Outdoor</option>
+                                            <option value="window" {% if restaurant_details.seating_preference == 'window' %}selected{% endif %}>Window</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        
+                        <div>
+                            <label for="id_special_requests" class="block text-sm font-semibold text-gray-700 mb-2">Special Requests</label>
+                            <textarea id="id_special_requests" name="special_requests" rows="4" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ booking.special_requests }}</textarea>
+                            <p class="mt-2 text-sm text-gray-500">We'll do our best to accommodate your requests, but they are subject to availability.</p>
+                        </div>
+                        
+                        <div class="flex justify-between pt-6 border-t border-gray-200">
+                            <a href="{% url 'dashboard_home' %}" class="inline-block bg-gray-200 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-300 transition">
+                                Cancel
+                            </a>
+                            <button type="submit" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-xl hover:bg-blue-700 transition">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div class="quick-links">
+            <h3>Quick Links</h3>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'my_hotel' %}">Hotel</a>
+            <a href="{% url 'spa_home' %}">Spa</a>
+            <a href="{% url 'restaurant_home' %}">Restaurant</a>
+            <a href="{% url 'events' %}">Events</a>
+            <a href="{% url 'premises' %}">Premises</a>
+            <a href="{% url 'contactus' %}">Contact us</a>
+        </div>
+        <div class="social-links">
+            <h3>Connect With Us</h3>
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2025 Hotel Tigra. All rights reserved.</p>
+    </div>
+</footer>
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const bookingDateInput = document.getElementById('id_booking_date');
+        const checkOutInput = document.getElementById('id_check_out');
+        
+        if (bookingDateInput && checkOutInput) {
+            bookingDateInput.addEventListener('change', function() {
+                // Ensure check-out is at least one day after check-in
+                const checkInDate = new Date(this.value);
+                const checkOutDate = new Date(checkOutInput.value);
+                
+                if (checkOutDate <= checkInDate) {
+                    const newCheckOut = new Date(checkInDate);
+                    newCheckOut.setDate(newCheckOut.getDate() + 1);
+                    
+                    const year = newCheckOut.getFullYear();
+                    const month = String(newCheckOut.getMonth() + 1).padStart(2, '0');
+                    const day = String(newCheckOut.getDate()).padStart(2, '0');
+                    
+                    checkOutInput.value = `${year}-${month}-${day}`;
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}
 {% endblock %}

@@ -5,4 +5,12 @@
 {% block content %}
 <h2>Welcome to the Rest Tigra Restaurant!</h2>
 <p>Enjoy our delicious meals and excellent service.</p>
+
+<div class="reservation-section">
+    {% if user.is_authenticated %}
+        <a href="{% url 'book_table' %}" class="reservation-button">Reserve a Table</a>
+    {% else %}
+        <a href="{% url 'account_login' %}?next={% url 'book_table' %}" class="reservation-button">Login to Reserve a Table</a>
+    {% endif %}
+</div>
 {% endblock %}

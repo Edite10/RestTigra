@@ -1,0 +1,284 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Book a Room | Hotel Tigra{% endblock %}
+
+{% block content %}
+<section class="hero">
+    {% include 'includes/navigation.html' %}
+    
+    <div class="hero-content">
+        <h1>Book Your Stay</h1>
+        <p class="tagline">Complete your reservation in a few easy steps</p>
+    </div>
+</section>
+
+<section class="py-16 bg-blue-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <!-- Room Booking Form -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-blue-100">
+                {% if messages %}
+                    <div class="p-6 border-b border-gray-200">
+                        {% for message in messages %}
+                            <div class="django-messages mb-4 p-4 {% if message.tags == 'success' %}bg-green-100 text-green-700{% elif message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-blue-100 text-blue-700{% endif %} rounded-lg font-medium">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                
+                <div class="p-8 md:p-10">
+                    <h2 class="text-3xl font-bold mb-8 text-center text-blue-800 border-b border-blue-100 pb-4">Room Reservation</h2>
+                    
+                    {% if selected_room %}
+                        <div class="mb-8 p-6 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                            <h3 class="font-bold text-xl mb-2 text-blue-800">Selected Room: {{ selected_room.room_type }}</h3>
+                            <p class="text-gray-700 text-lg">Room #{{ selected_room.number }} - <span class="font-semibold">€{{ selected_room.price }}</span> per night</p>
+                        </div>
+                    {% endif %}
+                    
+                    <form method="POST" action="{% url 'book_room' %}" class="space-y-8">
+                        {% csrf_token %}
+                        
+                        {% if not selected_room %}
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <label for="id_room_type" class="block text-sm font-semibold text-gray-700 mb-2">Room Type</label>
+                                <select id="id_room_type" name="room_type" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" required>
+                                    <option value="" selected disabled>Select a room type</option>
+                                    <option value="standard">Standard Room</option>
+                                    <option value="deluxe">Deluxe Room</option>
+                                    <option value="suite">Luxury Suite</option>
+                                    <option value="family">Family Suite</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="id_guests" class="block text-sm font-semibold text-gray-700 mb-2">Number of Guests</label>
+                                <select id="id_guests" name="guests" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" required>
+                                    <option value="1">1 Guest</option>
+                                    <option value="2" selected>2 Guests</option>
+                                    <option value="3">3 Guests</option>
+                                    <option value="4">4 Guests</option>
+                                    <option value="5">5 Guests</option>
+                                </select>
+                            </div>
+                        </div>
+                        {% else %}
+                            <input type="hidden" name="room_id" value="{{ selected_room.id }}">
+                        {% endif %}
+                        
+                        <div class="p-6 bg-yellow-50 rounded-lg mb-6">
+                            <h3 class="font-semibold text-lg mb-4 text-yellow-800">Booking Dates</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div>
+                                    <label for="id_check_in" class="block text-sm font-semibold text-gray-700 mb-2">Check-in Date</label>
+                                    <input type="date" id="id_check_in" name="check_in" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" required>
+                                </div>
+                                
+                                <div>
+                                    <label for="id_check_out" class="block text-sm font-semibold text-gray-700 mb-2">Check-out Date</label>
+                                    <input type="date" id="id_check_out" name="check_out" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 bg-blue-50 rounded-lg mb-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold text-lg text-blue-800">Guest Information</h3>
+                                <div class="flex items-center">
+                                    <input id="auto_fill" name="auto_fill" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked>
+                                    <label for="auto_fill" class="ml-2 text-sm font-medium text-gray-700">Use my account information</label>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div>
+                                    <label for="id_first_name" class="block text-sm font-semibold text-gray-700 mb-2">First Name</label>
+                                    <input type="text" id="id_first_name" name="first_name" value="{{ user.first_name }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" required>
+                                </div>
+                                
+                                <div>
+                                    <label for="id_last_name" class="block text-sm font-semibold text-gray-700 mb-2">Last Name</label>
+                                    <input type="text" id="id_last_name" name="last_name" value="{{ user.last_name }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" required>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                                <div>
+                                    <label for="id_email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+                                    <input type="email" id="id_email" name="email" value="{{ user.email }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" required>
+                                </div>
+                                
+                                <div>
+                                    <label for="id_phone" class="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
+                                    <input type="tel" id="id_phone" name="phone" value="{{ user.profile.phone|default:'' }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-3" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="id_special_requests" class="block text-sm font-semibold text-gray-700 mb-2">Special Requests</label>
+                            <textarea id="id_special_requests" name="special_requests" rows="4" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
+                            <p class="mt-2 text-sm text-gray-500">We'll do our best to accommodate your requests, but they are subject to availability.</p>
+                        </div>
+                        
+                        <div class="pt-6 border-t border-gray-200">
+                            <div class="flex items-start bg-gray-50 p-4 rounded-lg">
+                                <div class="flex items-center h-5 mt-1">
+                                    <input id="id_terms" name="terms" type="checkbox" class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500" required>
+                                </div>
+                                <div class="ml-3">
+                                    <label for="id_terms" class="font-medium text-gray-700 text-base">I agree to the terms and conditions</label>
+                                    <p class="text-gray-500 mt-1">By checking this box, you agree to our <a href="#" class="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center pt-6">
+                            <button type="submit" class="inline-block bg-blue-600 text-white px-8 py-4 text-lg font-medium rounded-xl hover:bg-blue-700 transition shadow-md hover:shadow-lg">
+                                Complete Booking
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Booking Information -->
+<section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold text-center mb-10">Important Information</h2>
+        
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <div class="bg-blue-100 h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-clock text-blue-600 text-2xl"></i>
+                </div>
+                <h3 class="font-semibold text-lg mb-2">Check-in & Check-out</h3>
+                <p class="text-gray-600">Check-in: 14:00<br>Check-out: 12:00</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="bg-blue-100 h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-credit-card text-blue-600 text-2xl"></i>
+                </div>
+                <h3 class="font-semibold text-lg mb-2">Payment</h3>
+                <p class="text-gray-600">We accept all major credit cards. A 20% deposit is required to secure your booking.</p>
+            </div>
+            
+            <div class="text-center">
+                <div class="bg-blue-100 h-16 w-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-ban text-blue-600 text-2xl"></i>
+                </div>
+                <h3 class="font-semibold text-lg mb-2">Cancellation Policy</h3>
+                <p class="text-gray-600">Free cancellation up to 48 hours before check-in. For later cancellations, one night's stay will be charged.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div class="quick-links">
+            <h3>Quick Links</h3>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'my_hotel' %}">Hotel</a>
+            <a href="{% url 'spa_home' %}">Spa</a>
+            <a href="{% url 'restaurant_home' %}">Restaurant</a>
+            <a href="{% url 'events' %}">Events</a>
+            <a href="{% url 'premises' %}">Premises</a>
+            <a href="{% url 'contactus' %}">Contact us</a>
+        </div>
+        <div class="social-links">
+            <h3>Connect With Us</h3>
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>&copy; 2025 Hotel Tigra. All rights reserved.</p>
+    </div>
+</footer>
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set min dates for check-in and check-out
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        
+        // Format dates as YYYY-MM-DD for input elements
+        const formatDate = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        };
+        
+        const checkInInput = document.getElementById('id_check_in');
+        const checkOutInput = document.getElementById('id_check_out');
+        
+        // Set min attribute for check-in to today
+        checkInInput.min = formatDate(today);
+        // Set default value for check-in to today
+        checkInInput.value = formatDate(today);
+        
+        // Set min attribute for check-out to tomorrow
+        checkOutInput.min = formatDate(tomorrow);
+        // Set default value for check-out to tomorrow
+        checkOutInput.value = formatDate(tomorrow);
+        
+        // Update check-out min date when check-in changes
+        checkInInput.addEventListener('change', function() {
+            const newCheckIn = new Date(this.value);
+            const newMinCheckOut = new Date(newCheckIn);
+            newMinCheckOut.setDate(newMinCheckOut.getDate() + 1);
+            
+            checkOutInput.min = formatDate(newMinCheckOut);
+            
+            // If current check-out is before new min, update it
+            if (new Date(checkOutInput.value) <= newCheckIn) {
+                checkOutInput.value = formatDate(newMinCheckOut);
+            }
+        });
+        
+        // Handle auto-fill checkbox
+        const autoFillCheckbox = document.getElementById('auto_fill');
+        const firstNameInput = document.getElementById('id_first_name');
+        const lastNameInput = document.getElementById('id_last_name');
+        const emailInput = document.getElementById('id_email');
+        const phoneInput = document.getElementById('id_phone');
+        
+        // Store original values
+        const userData = {
+            firstName: "{{ user.first_name }}",
+            lastName: "{{ user.last_name }}",
+            email: "{{ user.email }}",
+            phone: "{{ user.profile.phone|default:'' }}"
+        };
+        
+        autoFillCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                // Auto-fill with user data
+                firstNameInput.value = userData.firstName;
+                lastNameInput.value = userData.lastName;
+                emailInput.value = userData.email;
+                phoneInput.value = userData.phone;
+            } else {
+                // Clear fields
+                firstNameInput.value = '';
+                lastNameInput.value = '';
+                emailInput.value = '';
+                phoneInput.value = '';
+            }
+        });
+    });
+</script>
+{% endblock %}
+{% endblock %}

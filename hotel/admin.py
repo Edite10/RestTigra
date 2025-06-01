@@ -14,3 +14,10 @@ class BookingAdmin(admin.ModelAdmin):
     list_filter = ('check_in', 'check_out')
     search_fields = ('customer_name',)
     ordering = ('-check_in',)
+
+class BookingAdmin(admin.ModelAdmin):
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(user=request.user)   

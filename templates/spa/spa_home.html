@@ -5,4 +5,14 @@
 {% block content %}
 <h2>Welcome to the Rest Tigra Spa!</h2>
 <p>Relax and rejuvenate with our premium spa services.</p>
+
+<div class="spa-services">
+    <div class="booking-section">
+        {% if user.is_authenticated %}
+            <a href="{% url 'spa_booking' %}" class="booking-button">Book Your Treatment</a>
+        {% else %}
+            <a href="{% url 'account_login' %}?next={% url 'spa_booking' %}" class="booking-button">Login to Book Treatment</a>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

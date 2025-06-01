@@ -43,19 +43,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',  # Required for django-allauth
+    'django.contrib.sites',
+    
+    # Project apps
     'hotel',
     'restaurant',
     'spa',
     'contact',
-    'dashboard',
+    'dashboard',  # Ensure dashboard is included
     
-    # Django-allauth apps
+    # Django-allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    # Add any additional allauth providers you need, like:
-    # 'allauth.socialaccount.providers.google',
 ]
 
 # Site ID is required for django-allauth
@@ -77,9 +77,10 @@ ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  # Options: 'username', 'email', or 'username_email'
 ACCOUNT_EMAIL_VERIFICATION = 'optional'  # Options: 'mandatory', 'optional', or 'none'
 
-# Login and Redirect URLs
+# Login settings
 LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/dashboard/'
+LOGIN_REDIRECT_URL = '/'
+
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 MIDDLEWARE = [

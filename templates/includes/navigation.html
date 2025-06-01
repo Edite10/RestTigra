@@ -15,6 +15,7 @@
             <li><a href="{% url 'premises' %}">Premises</a></li>
             <li><a href="{% url 'contactus' %}">Contact</a></li>
             {% if user.is_authenticated %}
+                <li><a href="{% url 'dashboard_home' %}">Dashboard</a></li>
                 <li><a href="{% url 'account_logout' %}" class="btn-signup">Sign Out</a></li>
             {% else %}
                 <li><a href="{% url 'account_login' %}">Log in</a></li>
